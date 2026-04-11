@@ -24,38 +24,22 @@ Result<> SubChunkPacket::SubChunkPosOffset::read(ReadOnlyBinaryStream& stream) {
 void SubChunkPacket::HeightmapData::write(BinaryStream& stream) const {
     stream.writeEnum(mHeightMapType, &BinaryStream::writeByte);
     if (mHeightMapType == HeightMapDataType::HasData) {
-        for (int z = 0; z < 16; ++z) {
-            for (int x = 0; x < 16; ++x) {
-                stream.writeSignedChar(mSubchunkHeightMap[z][x]);
-            }
-        }
+        stream.writeBytes(&mSubchunkHeightMap, sizeof(mSubchunkHeightMap));
     }
     stream.writeEnum(mRenderHeightMapType, &BinaryStream::writeByte);
     if (mRenderHeightMapType == HeightMapDataType::HasData) {
-        for (int z = 0; z < 16; ++z) {
-            for (int x = 0; x < 16; ++x) {
-                stream.writeSignedChar(mRenderHeightMap[z][x]);
-            }
-        }
+        stream.writeBytes(&mRenderHeightMap, sizeof(mRenderHeightMap));
     }
 }
 
 Result<> SubChunkPacket::HeightmapData::read(ReadOnlyBinaryStream& stream) {
     if (auto status = stream.readEnum(mHeightMapType, &ReadOnlyBinaryStream::readByte); !status) return status;
     if (mHeightMapType == HeightMapDataType::HasData) {
-        for (int z = 0; z < 16; ++z) {
-            for (int x = 0; x < 16; ++x) {
-                if (auto status = stream.readSignedChar(mSubchunkHeightMap[z][x]); !status) return status;
-            }
-        }
+        if (auto status = stream.readBytes(&mSubchunkHeightMap, sizeof(mSubchunkHeightMap)); !status) return status;
     }
     if (auto status = stream.readEnum(mRenderHeightMapType, &ReadOnlyBinaryStream::readByte); !status) return status;
     if (mRenderHeightMapType == HeightMapDataType::HasData) {
-        for (int z = 0; z < 16; ++z) {
-            for (int x = 0; x < 16; ++x) {
-                if (auto status = stream.readSignedChar(mRenderHeightMap[z][x]); !status) return status;
-            }
-        }
+        if (auto status = stream.readBytes(&mRenderHeightMap, sizeof(mRenderHeightMap)); !status) return status;
     }
     return {};
 }

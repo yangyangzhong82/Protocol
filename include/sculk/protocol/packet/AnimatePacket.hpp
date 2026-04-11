@@ -12,7 +12,16 @@ namespace sculk::protocol::inline abi_v944 {
 
 class AnimatePacket : public IPacket {
 public:
-    std::int32_t               mAction{};
+    enum class Action : int {
+        NoAction         = 0,
+        Swing            = 1,
+        WakeUp           = 3,
+        CriticalHit      = 4,
+        MagicCriticalHit = 5,
+    };
+
+public:
+    Action                     mAction{};
     std::uint64_t              mActorRuntimeId{};
     float                      mData{};
     float                      mRowingTime{};

@@ -6,15 +6,16 @@
 // SPDX-License-Identifier: MPL-2.0
 
 #pragma once
+#include "sculk/protocol/actor/AgentActionType.hpp"
 #include "sculk/protocol/packet/IPacket.hpp"
 
 namespace sculk::protocol::inline abi_v944 {
 
 class AgentActionEventPacket : public IPacket {
 public:
-    std::string  mRequestId{};
-    std::int32_t mAction{};
-    std::string  mResponse{};
+    std::string     mRequestId{};
+    AgentActionType mAction{};
+    std::string     mResponse{};
 
 public:
     [[nodiscard]] MinecraftPacketIds getId() const noexcept override;

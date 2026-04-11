@@ -17,7 +17,7 @@ void AnimateEntityPacket::write(BinaryStream& stream) const {
     stream.writeString(mAnimation);
     stream.writeString(mNextState);
     stream.writeString(mStopExpression);
-    stream.writeSignedInt(mStopExpressionMolangVersion);
+    stream.writeEnum(mStopExpressionMolangVersion, &BinaryStream::writeSignedInt);
     stream.writeString(mController);
     stream.writeFloat(mBlendOutTime);
     stream.writeArray(mRuntimeIds, &BinaryStream::writeUnsignedVarInt64);
@@ -27,7 +27,8 @@ Result<> AnimateEntityPacket::read(ReadOnlyBinaryStream& stream) {
     if (auto status = stream.readString(mAnimation); !status) return status;
     if (auto status = stream.readString(mNextState); !status) return status;
     if (auto status = stream.readString(mStopExpression); !status) return status;
-    if (auto status = stream.readSignedInt(mStopExpressionMolangVersion); !status) return status;
+    if (auto status = stream.readEnum(mStopExpressionMolangVersion, &ReadOnlyBinaryStream::readSignedInt); !status)
+        return status;
     if (auto status = stream.readString(mController); !status) return status;
     if (auto status = stream.readFloat(mBlendOutTime); !status) return status;
     return stream.readArray(mRuntimeIds, &ReadOnlyBinaryStream::readUnsignedVarInt64);

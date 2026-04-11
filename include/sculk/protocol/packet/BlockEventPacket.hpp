@@ -6,6 +6,7 @@
 // SPDX-License-Identifier: MPL-2.0
 
 #pragma once
+#include "sculk/protocol/level/block/BlockEventType.hpp"
 #include "sculk/protocol/level/block/BlockPos.hpp"
 #include "sculk/protocol/packet/IPacket.hpp"
 
@@ -13,9 +14,9 @@ namespace sculk::protocol::inline abi_v944 {
 
 class BlockEventPacket : public IPacket {
 public:
-    BlockPos     mBlockPosition{};
-    std::int32_t mEventType{};
-    std::int32_t mEventValue{};
+    BlockPos       mBlockPosition{};
+    BlockEventType mEventType{};
+    std::int32_t   mEventValue{};
 
 public:
     [[nodiscard]] MinecraftPacketIds getId() const noexcept override;

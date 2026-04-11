@@ -14,12 +14,12 @@ MinecraftPacketIds AgentAnimationPacket::getId() const noexcept { return Minecra
 std::string_view AgentAnimationPacket::getName() const noexcept { return "AgentAnimationPacket"; }
 
 void AgentAnimationPacket::write(BinaryStream& stream) const {
-    stream.writeByte(mAnimation);
+    stream.writeEnum(mAnimation, &BinaryStream::writeByte);
     stream.writeUnsignedVarInt64(mRuntimeId);
 }
 
 Result<> AgentAnimationPacket::read(ReadOnlyBinaryStream& stream) {
-    if (auto status = stream.readByte(mAnimation); !status) return status;
+    if (auto status = stream.readEnum(mAnimation, &ReadOnlyBinaryStream::readByte); !status) return status;
     return stream.readUnsignedVarInt64(mRuntimeId);
 }
 

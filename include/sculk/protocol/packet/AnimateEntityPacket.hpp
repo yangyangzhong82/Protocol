@@ -6,6 +6,7 @@
 // SPDX-License-Identifier: MPL-2.0
 
 #pragma once
+#include "sculk/protocol/level/MolangVersion.hpp"
 #include "sculk/protocol/packet/IPacket.hpp"
 
 namespace sculk::protocol::inline abi_v944 {
@@ -15,7 +16,7 @@ public:
     std::string                mAnimation{};
     std::string                mNextState{};
     std::string                mStopExpression{};
-    std::int32_t               mStopExpressionMolangVersion{};
+    MolangVersion              mStopExpressionMolangVersion{};
     std::string                mController{};
     float                      mBlendOutTime{};
     std::vector<std::uint64_t> mRuntimeIds{};

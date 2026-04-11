@@ -15,13 +15,13 @@ std::string_view AgentActionEventPacket::getName() const noexcept { return "Agen
 
 void AgentActionEventPacket::write(BinaryStream& stream) const {
     stream.writeString(mRequestId);
-    stream.writeSignedInt(mAction);
+    stream.writeEnum(mAction, &BinaryStream::writeSignedInt);
     stream.writeString(mResponse);
 }
 
 Result<> AgentActionEventPacket::read(ReadOnlyBinaryStream& stream) {
     if (auto status = stream.readString(mRequestId); !status) return status;
-    if (auto status = stream.readSignedInt(mAction); !status) return status;
+    if (auto status = stream.readEnum(mAction, &ReadOnlyBinaryStream::readSignedInt); !status) return status;
     return stream.readString(mResponse);
 }
 

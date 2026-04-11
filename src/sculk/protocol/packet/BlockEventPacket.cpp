@@ -15,13 +15,13 @@ std::string_view BlockEventPacket::getName() const noexcept { return "BlockEvent
 
 void BlockEventPacket::write(BinaryStream& stream) const {
     mBlockPosition.write(stream);
-    stream.writeVarInt(mEventType);
+    stream.writeEnum(mEventType, &BinaryStream::writeVarInt);
     stream.writeVarInt(mEventValue);
 }
 
 Result<> BlockEventPacket::read(ReadOnlyBinaryStream& stream) {
     if (auto status = mBlockPosition.read(stream); !status) return status;
-    if (auto status = stream.readVarInt(mEventType); !status) return status;
+    if (auto status = stream.readEnum(mEventType, &ReadOnlyBinaryStream::readVarInt); !status) return status;
     return stream.readVarInt(mEventValue);
 }
 

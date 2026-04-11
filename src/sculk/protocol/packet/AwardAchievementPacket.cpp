@@ -13,8 +13,12 @@ MinecraftPacketIds AwardAchievementPacket::getId() const noexcept { return Minec
 
 std::string_view AwardAchievementPacket::getName() const noexcept { return "AwardAchievementPacket"; }
 
-void AwardAchievementPacket::write(BinaryStream& stream) const { stream.writeSignedInt(mAchievementId); }
+void AwardAchievementPacket::write(BinaryStream& stream) const {
+    stream.writeEnum(mAchievementId, &BinaryStream::writeSignedInt);
+}
 
-Result<> AwardAchievementPacket::read(ReadOnlyBinaryStream& stream) { return stream.readSignedInt(mAchievementId); }
+Result<> AwardAchievementPacket::read(ReadOnlyBinaryStream& stream) {
+    return stream.readEnum(mAchievementId, &ReadOnlyBinaryStream::readSignedInt);
+}
 
 } // namespace sculk::protocol::inline abi_v944

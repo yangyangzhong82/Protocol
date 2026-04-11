@@ -14,14 +14,14 @@ MinecraftPacketIds AnimatePacket::getId() const noexcept { return MinecraftPacke
 std::string_view AnimatePacket::getName() const noexcept { return "AnimatePacket"; }
 
 void AnimatePacket::write(BinaryStream& stream) const {
-    stream.writeVarInt(mAction);
+    stream.writeEnum(mAction, &BinaryStream::writeVarInt);
     stream.writeUnsignedVarInt64(mActorRuntimeId);
     stream.writeFloat(mData);
     stream.writeOptional(mSwingSource, &BinaryStream::writeString);
 }
 
 Result<> AnimatePacket::read(ReadOnlyBinaryStream& stream) {
-    if (auto status = stream.readVarInt(mAction); !status) return status;
+    if (auto status = stream.readEnum(mAction, &ReadOnlyBinaryStream::readVarInt); !status) return status;
     if (auto status = stream.readUnsignedVarInt64(mActorRuntimeId); !status) return status;
     if (auto status = stream.readFloat(mData); !status) return status;
     return stream.readOptional(mSwingSource, &ReadOnlyBinaryStream::readString);

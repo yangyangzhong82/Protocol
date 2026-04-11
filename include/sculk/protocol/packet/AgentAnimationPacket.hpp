@@ -6,14 +6,15 @@
 // SPDX-License-Identifier: MPL-2.0
 
 #pragma once
+#include "sculk/protocol/actor/AgentAnimationType.hpp"
 #include "sculk/protocol/packet/IPacket.hpp"
 
 namespace sculk::protocol::inline abi_v944 {
 
 class AgentAnimationPacket : public IPacket {
 public:
-    std::uint8_t  mAnimation{};
-    std::uint64_t mRuntimeId{};
+    AgentAnimationType mAnimation{};
+    std::uint64_t      mRuntimeId{};
 
 public:
     [[nodiscard]] MinecraftPacketIds getId() const noexcept override;
