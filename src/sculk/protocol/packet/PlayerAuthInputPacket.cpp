@@ -19,7 +19,6 @@ void PlayerAuthInputPacket::write(BinaryStream& stream) const {
     mMoveVector.write(stream);
     stream.writeFloat(mPlayerHeadRotation);
     stream.writeBitset(mInputData);
-    static_assert(mInputData.size() == PLAYER_AUTH_INPUT_DATA_COUNT);
     stream.writeUnsignedVarInt(mInputType);
     stream.writeUnsignedVarInt(mPlayMode);
     stream.writeUnsignedVarInt(mNewInteractionModel);
@@ -50,7 +49,6 @@ Result<> PlayerAuthInputPacket::read(ReadOnlyBinaryStream& stream) {
     if (auto status = mMoveVector.read(stream); !status) return status;
     if (auto status = stream.readFloat(mPlayerHeadRotation); !status) return status;
     if (auto status = stream.readBitset(mInputData); !status) return status;
-    static_assert(mInputData.size() == PLAYER_AUTH_INPUT_DATA_COUNT);
     if (auto status = stream.readUnsignedVarInt(mInputType); !status) return status;
     if (auto status = stream.readUnsignedVarInt(mPlayMode); !status) return status;
     if (auto status = stream.readUnsignedVarInt(mNewInteractionModel); !status) return status;
