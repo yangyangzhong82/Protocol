@@ -18,7 +18,6 @@ std::string_view ClientMovementPredictionSyncPacket::getName() const noexcept {
 
 void ClientMovementPredictionSyncPacket::write(BinaryStream& stream) const {
     stream.writeBitset(mActorFlags);
-    static_assert(mActorFlags.size() == ACTOR_FLAGS_COUNT);
     mActorBoundingBox.write(stream);
     stream.writeFloat(mMovementAttributes.mMovementSpeed);
     stream.writeFloat(mMovementAttributes.mUnderwaterMovementSpeed);
@@ -32,7 +31,6 @@ void ClientMovementPredictionSyncPacket::write(BinaryStream& stream) const {
 
 Result<> ClientMovementPredictionSyncPacket::read(ReadOnlyBinaryStream& stream) {
     if (auto status = stream.readBitset(mActorFlags); !status) return status;
-    static_assert(mActorFlags.size() == ACTOR_FLAGS_COUNT);
     if (auto status = mActorBoundingBox.read(stream); !status) return status;
     if (auto status = stream.readFloat(mMovementAttributes.mMovementSpeed); !status) return status;
     if (auto status = stream.readFloat(mMovementAttributes.mUnderwaterMovementSpeed); !status) return status;
