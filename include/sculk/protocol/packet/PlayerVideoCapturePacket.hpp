@@ -23,7 +23,7 @@ public:
     using VideoCaptureParams = std::variant<StartVideoCapture, StopVideoCapture>;
 
 public:
-    VideoCaptureParams mParams{};
+    VideoCaptureParams mParams{StopVideoCapture{}};
 
 public:
     [[nodiscard]] MinecraftPacketIds getId() const noexcept override;

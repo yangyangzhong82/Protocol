@@ -43,3 +43,8 @@
 # build directory
 /build/
 /docs/
+
+# xmake artifacts
+/.xmake/
+/xmake.log
+/xmake_build.log

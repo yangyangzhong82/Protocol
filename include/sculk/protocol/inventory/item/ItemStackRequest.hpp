@@ -144,7 +144,7 @@ struct ItemStackRequestAction {
         OnlyType>;
 
     Type    mActionType{};
-    Variant mVariant{};
+    Variant mVariant{OnlyType{}};
 
     void write(BinaryStream& stream) const;
 
