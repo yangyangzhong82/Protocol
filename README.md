@@ -1,7 +1,7 @@
 # 📄 Protocol
 
 ![C++23](https://img.shields.io/badge/C%2B%2B-23-blue)
-![CMake](https://img.shields.io/badge/CMake-3.20%2B-064f8c)
+![xmake](https://img.shields.io/badge/xmake-2.8%2B-3C8CFF)
 ![License](https://img.shields.io/badge/License-MPL--2.0-brightgreen)
 
 [📄 中文文档](README.zh.md)
@@ -25,12 +25,12 @@ Join our community:
 - Binary serialization/deserialization primitives:
   - `BinaryStream`
   - `ReadOnlyBinaryStream`
-- CMake package export support (`Protocol::Protocol`)
+- xmake-based build workflow
 - MPL-2.0 licensed
 
 ## 🧩 Requirements
 
-- CMake 3.20 or newer
+- xmake 2.8 or newer
 - A C++23-capable compiler
 
 ## 🛠️ Build
@@ -38,28 +38,77 @@ Join our community:
 ### 📄 Configure
 
 ```bash
-cmake -S . -B build -G Ninja
+xmake f -m release
 ```
+
+> Default build kind is **shared library**. Use `xmake f --shared=false` for static.
 
 ### 📄 Compile
 
 ```bash
-cmake --build build
+xmake
+```
+
+### 📄 Linux (LLVM/Clang)
+
+```bash
+xmake f -p linux -a x86_64 --toolchain=clang -m release
+xmake
+```
+
+### 📄 Windows (MSVC)
+
+```bash
+xmake f -p windows -a x64 --toolchain=msvc -m release
+xmake
 ```
 
 ### 📄 Install
 
 ```bash
-cmake --install build
+xmake install -o install
 ```
 
-## 🔌 CMake Integration
+## 🔌 xmake Integration
 
-After installation, consume the library with CMake:
+If your project also uses xmake:
 
-```cmake
-find_package(Protocol CONFIG REQUIRED)
-target_link_libraries(your_target PRIVATE Protocol::Protocol)
+```lua
+add_repositories("local-repo /path/to/Protocol")
+add_requires("Protocol")
+```
+
+## 📦 Publishing to an xmake-repo
+
+If you want other xmake projects to consume this library through `add_requires`,
+you can add a package recipe to your custom xmake-repo.
+
+A ready-to-use example recipe is provided at:
+
+- `xmake-repo/packages/p/protocol/xmake.lua`
+
+> Note: the recipe will prefer `xmake.lua`; if absent, it falls back to CMake installation.
+
+Minimal workflow:
+
+```bash
+# 1) Add your repository that stores package recipes
+xmake repo --add protocol-repo https://github.com/<you>/xmake-repo.git
+
+# 2) Install package from that repo
+xrepo install protocol dev
+```
+
+In a consumer project:
+
+```lua
+add_repositories("protocol-repo https://github.com/<you>/xmake-repo.git")
+add_requires("protocol dev")
+
+target("app")
+    set_kind("binary")
+    add_files("src/*.cpp")
+    add_packages("protocol")
 ```
 
 ## 🚀 Quick Start
@@ -102,7 +151,7 @@ int main() {
 
 - `include/sculk/protocol`: public headers
 - `src/sculk/protocol`: implementation
-- `cmake`: package config templates
+- `xmake.lua`: xmake build script
 - `scripts`: development helper scripts
 
 ## 🧬 ABI Namespace

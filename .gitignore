@@ -44,6 +44,7 @@
 /build/
 /docs/
 
-# IDE files
-.vscode/
-.vs/
+# xmake artifacts
+/.xmake/
+/xmake.log
+/xmake_build.log

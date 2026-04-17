@@ -30,7 +30,7 @@ file(GLOB_RECURSE PROTOCOL_SOURCES CONFIGURE_DEPENDS
     "${PROJECT_SOURCE_DIR}/src/*.cpp"
 )
 
-add_library(Protocol STATIC ${PROTOCOL_SOURCES})
+add_library(Protocol SHARED ${PROTOCOL_SOURCES})
 add_library(Protocol::Protocol ALIAS Protocol)
 
 set_target_properties(Protocol PROPERTIES

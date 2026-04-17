@@ -47,7 +47,7 @@ public:
 public:
     bool            mLocalize{};
     Type            mType{};
-    TextBodyVariant mBody{};
+    TextBodyVariant mBody{MessageOnly{}};
     std::string     mXuid{};
     std::string     mPlatformId{};
     std::string     mFilteredMessage{};

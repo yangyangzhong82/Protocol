@@ -1,0 +1,32 @@
+name: xmake-windows
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  windows-build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup xmake
+        uses: xmake-io/github-action-setup-xmake@v1
+        with:
+          xmake-version: latest
+
+      - name: Show toolchain versions
+        shell: pwsh
+        run: |
+          xmake --version
+          perl --version
+
+      - name: Configure (x64 Release)
+        shell: pwsh
+        run: xmake f -p windows -a x64 --toolchain=msvc -m release -y
+
+      - name: Build
+        shell: pwsh
+        run: xmake -y

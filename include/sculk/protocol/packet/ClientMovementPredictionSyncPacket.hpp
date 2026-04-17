@@ -12,6 +12,8 @@
 
 namespace sculk::protocol::inline abi_v944 {
 
+static_assert(ACTOR_FLAGS_COUNT == 127, "ClientMovementPredictionSyncPacket actor flag bit size mismatch");
+
 class ClientMovementPredictionSyncPacket : public IPacket {
 public:
     struct MovementAttributesComponent {

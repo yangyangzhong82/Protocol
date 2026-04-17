@@ -16,6 +16,8 @@
 
 namespace sculk::protocol::inline abi_v944 {
 
+static_assert(PLAYER_AUTH_INPUT_DATA_COUNT == 65, "PlayerAuthInputPacket input bit size mismatch");
+
 class PlayerAuthInputPacket : public IPacket {
 public:
     Vec2                                    mPlayerRotation{};
