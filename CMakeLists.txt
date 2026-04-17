@@ -12,7 +12,7 @@ include(FetchContent)
 
 set(CMAKE_FIND_PACKAGE_PREFER_CONFIG ON)
 
-find_package(OpenSSL 3 REQUIRED)
+find_package(OpenSSL 1.1.1 REQUIRED COMPONENTS Crypto)
 
 set(REFLECTION_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 FetchContent_Declare(
