@@ -168,7 +168,7 @@ int main() {
 
 ## 🙏 鸣谢
 
-本开源项目的诞生源于闭源付费项目 XXX 的支持。
+本开源项目的诞生源于闭源付费项目 [GlacieTeam/ProtocolLib](https://github.com/GlacieTeam/ProtocolLib) 的支持。
 
 赞助链接：https://afdian.tv/a/GlacieTeam
 

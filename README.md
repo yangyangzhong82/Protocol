@@ -169,7 +169,7 @@ Contributions are welcome.
 
 ## 🙏 Acknowledgments
 
-This open source project was born with support from the closed-source paid project XXX.
+This open source project was born with support from the closed-source paid project [GlacieTeam/ProtocolLib](https://github.com/GlacieTeam/ProtocolLib).
 
 Support link: https://afdian.tv/a/GlacieTeam
 

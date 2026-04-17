@@ -48,6 +48,10 @@ public:
 
     constexpr void reset() { mBuffer.clear(); }
 
+    constexpr std::string_view asStringView() const {
+        return std::string_view(reinterpret_cast<const char*>(mBuffer.data()), mBuffer.size());
+    }
+
     constexpr void writeBytes(const void* origin, std::size_t num) {
         appendBytes(reinterpret_cast<const std::byte*>(origin), num);
     }
