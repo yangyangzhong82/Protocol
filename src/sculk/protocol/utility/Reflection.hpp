@@ -7,7 +7,9 @@
 
 #pragma once
 #include "sculk/protocol/utility/deps/Result.hpp"
+#include <charconv>
 #include <sculk/reflection/jsonc/reflection.hpp>
+#include <system_error>
 
 namespace sculk::protocol::inline abi_v944::utils {
 

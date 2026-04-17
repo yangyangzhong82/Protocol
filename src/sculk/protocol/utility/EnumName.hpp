@@ -8,11 +8,11 @@
 #pragma once
 #include "sculk/protocol/utility/deps/BinaryStream.hpp"
 #include "sculk/protocol/utility/deps/ReadOnlyBinaryStream.hpp"
+#include <charconv>
 #include <magic_enum/magic_enum.hpp>
 #include <sculk/reflection/utils/string_utils.hpp>
-#include <type_traits>
-#include <charconv>
 #include <system_error>
+#include <type_traits>
 
 namespace sculk::protocol::inline abi_v944::utils {
 
