@@ -57,6 +57,9 @@ target("Protocol")
     add_packages("openssl", "reflection", {public = true})
 
     if is_plat("windows") then
+        if get_config("shared") then
+            add_rules("utils.symbols.export_all", {export_classes = true})
+        end
         add_cxflags("/utf-8", "/W4")
         if is_mode("release") then
             add_cxflags("/O2")
