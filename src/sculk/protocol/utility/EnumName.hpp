@@ -11,6 +11,8 @@
 #include <magic_enum/magic_enum.hpp>
 #include <sculk/reflection/utils/string_utils.hpp>
 #include <type_traits>
+#include <charconv>
+#include <system_error>
 
 namespace sculk::protocol::inline abi_v944::utils {
 
